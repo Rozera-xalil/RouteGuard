@@ -1,0 +1,210 @@
+:root {
+  --blush: #fff3f7;
+  --petal: #ffdce8;
+  --petal-deep: #f6b8cf;
+  --peony: #f48fb1;
+  --berry: #c92c66;
+  --berry-dark: #a81f52;
+  --cocoa: #4a2238;
+  --cocoa-soft: #7a4d63;
+  --mint: #bdebd8;
+  --mint-deep: #3f9e7a;
+  --peach: #ffd9b8;
+  --peach-deep: #d9772b;
+  --white: #ffffff;
+
+  --radius-card: 26px;
+  --radius-field: 14px;
+  --font-display: 'Fredoka', 'Cairo', system-ui, sans-serif;
+  --font-body: 'Nunito', 'Cairo', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--blush);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--cocoa);
+  background-color: var(--blush);
+  /* quiet polka dots, the only decoration on the page */
+  background-image: radial-gradient(var(--petal) 1.6px, transparent 1.8px);
+  background-size: 28px 28px;
+}
+
+:lang(ar) body,
+:lang(ar) input,
+:lang(ar) select,
+:lang(ar) button {
+  font-family: 'Cairo', var(--font-body);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--berry);
+  outline-offset: 2px;
+}
+
+/* ---------- sticker card ---------- */
+.card {
+  background: var(--white);
+  border: 2px solid var(--petal-deep);
+  border-radius: var(--radius-card);
+  box-shadow: 0 6px 0 var(--petal-deep);
+  padding: 1.5rem;
+}
+
+.card h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+
+.muted {
+  color: var(--cocoa-soft);
+}
+
+/* ---------- buttons ---------- */
+.btn {
+  border: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 0.8rem 1.6rem;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.05rem;
+  background: var(--berry);
+  color: var(--white);
+  box-shadow: 0 4px 0 var(--berry-dark);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--berry-dark);
+}
+
+.btn:disabled {
+  opacity: 0.65;
+  cursor: progress;
+}
+
+.chip-btn {
+  border: 2px solid var(--petal-deep);
+  background: var(--white);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.chip-btn:hover {
+  background: var(--petal);
+}
+
+.chip-btn[aria-pressed='true'] {
+  background: var(--petal);
+  border-color: var(--berry);
+}
+
+/* ---------- risk chips ---------- */
+.chip {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.15rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+.chip.low,
+.chip.stable {
+  background: var(--mint);
+  color: #1f5e47;
+}
+
+.chip.medium,
+.chip.watch {
+  background: var(--peach);
+  color: #7a3d0a;
+}
+
+.chip.high,
+.chip.drift {
+  background: var(--berry);
+  color: var(--white);
+}
+
+.chip.insufficient_data,
+.chip.no_model {
+  background: var(--petal);
+  color: var(--cocoa);
+}
+
+/* ---------- form fields ---------- */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.field label {
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 2px solid var(--petal-deep);
+  border-radius: var(--radius-field);
+  background: var(--blush);
+}
+
+.field input:focus-visible,
+.field select:focus-visible {
+  outline: none;
+  border-color: var(--berry);
+  background: var(--white);
+  box-shadow: 0 0 0 4px var(--petal);
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--cocoa-soft);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

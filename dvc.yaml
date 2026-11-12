@@ -1,0 +1,39 @@
+stages:
+  build_data:
+    cmd: python -m routeguard.build_data
+    deps:
+      - data/raw
+      - src/routeguard/build_data.py
+    outs:
+      - data/processed/orders.csv
+      - data/processed/geo.csv
+
+  validate:
+    cmd: python -m routeguard.validate
+    deps:
+      - data/processed/orders.csv
+      - src/routeguard/validate.py
+
+  train:
+    cmd: python -m routeguard.train
+    deps:
+      - data/processed/orders.csv
+      - data/processed/geo.csv
+      - src/routeguard/train.py
+      - src/routeguard/features.py
+      - src/routeguard/model.py
+      - src/routeguard/monitoring.py
+    params:
+      - split
+      - features
+      - train
+      - decision
+      - drift
+    outs:
+      - models/routeguard_bundle.joblib
+    metrics:
+      - reports/metrics.json:
+          cache: false
+    plots:
+      - reports/evaluation.png:
+          cache: false

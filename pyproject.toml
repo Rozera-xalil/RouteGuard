@@ -1,0 +1,50 @@
+[project]
+name = "routeguard"
+version = "3.0.0"
+description = "Olist late-delivery risk: calibrated model, explanations, monitoring and a pink dashboard."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy>=2.0",
+    "pandas>=2.2",
+    "scikit-learn>=1.5",
+    "lightgbm>=4.5",
+    "joblib>=1.4",
+    "pyyaml>=6.0",
+]
+
+[dependency-groups]
+serve = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "prometheus-fastapi-instrumentator>=7.0",
+]
+train = [
+    "optuna>=4.0",
+    "mlflow>=3.0",
+    "dvc>=3.50",
+    "great-expectations>=1.3",
+    "matplotlib>=3.9",
+]
+dev = ["pytest>=8.3", "httpx>=0.27", "ruff>=0.8", "pre-commit>=4.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/routeguard"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "."]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning", "ignore::UserWarning"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = ["mlruns", "dashboard"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

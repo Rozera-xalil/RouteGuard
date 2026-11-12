@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+mlruns/
+mlflow.db
+logs/
+.env
+node_modules/
+dashboard/dist/
+# tracked by DVC, not git
+/data/raw
+/data/processed
+/models/routeguard_bundle.joblib

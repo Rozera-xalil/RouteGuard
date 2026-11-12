@@ -1,0 +1,48 @@
+groups:
+  - name: routeguard
+    rules:
+      - alert: ApiDown
+        expr: up{job="routeguard_api"} == 0
+        for: 1m
+        labels: { severity: critical }
+        annotations:
+          summary: "RouteGuard API is not answering"
+
+      - alert: HighErrorRate
+        expr: |
+          sum(rate(http_requests_total{status="5xx"}[5m]))
+            / clamp_min(sum(rate(http_requests_total[5m])), 1e-9) > 0.05
+        for: 5m
+        labels: { severity: critical }
+        annotations:
+          summary: "More than 5% of requests are failing"
+
+      - alert: SlowPredictions
+        expr: histogram_quantile(0.95, sum by (le) (rate(http_request_duration_highr_seconds_bucket[5m]))) > 1
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: "p95 latency is above 1 second"
+
+      - alert: FeatureDriftWatch
+        expr: rg_feature_psi_max > 0.10
+        for: 15m
+        labels: { severity: warning }
+        annotations:
+          summary: "Incoming orders are starting to look different from the training data (PSI > 0.10)"
+
+      - alert: FeatureDriftSevere
+        expr: rg_feature_psi_max > 0.25
+        for: 10m
+        labels: { severity: critical }
+        annotations:
+          summary: "Strong feature drift (PSI > 0.25) - review the data and consider retraining"
+
+      - alert: HighRiskShareJump
+        expr: |
+          sum(increase(rg_predictions_total{risk_level="high"}[1h]))
+            / clamp_min(sum(increase(rg_predictions_total[1h])), 1) > 0.5
+        for: 30m
+        labels: { severity: warning }
+        annotations:
+          summary: "More than half of the last hour's orders were flagged high risk"

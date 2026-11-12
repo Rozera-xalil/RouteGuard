@@ -1,0 +1,22 @@
+split:
+  train: 0.70
+  val: 0.15          # the remaining 0.15 is the test set (always the most recent orders)
+
+features:
+  seller_prior_rate: 0.08      # late rate assumed for a seller we know nothing about
+  seller_prior_strength: 20    # how many "virtual orders" the prior is worth
+  peak_months: [11, 12, 1, 2, 3]
+
+train:
+  seed: 42
+  n_trials: 30
+  cv_splits: 3
+
+decision:
+  cost_missed_late: 5.0   # a late order we did not flag costs 5x ...
+  cost_false_alarm: 1.0   # ... a false alarm
+
+drift:
+  min_rows: 30
+  watch_psi: 0.10
+  alert_psi: 0.25
