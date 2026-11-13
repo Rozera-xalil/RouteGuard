@@ -1,6 +1,4 @@
-![Uploading 575961783-f4b2fe8c-23fb-422f-a69e-96d17420da8c.jpg…]()
-<img width="720" height="1612" alt="575961530-ef7bdd31-aaf7-4cea-8cb7-8214666fbcaa" src="https://github.com/user-attachments/assets/abe490d5-94d1-49d8-843a-851dbd0de0f8" />
-<img width="1366" height="1193" alt="home" src="https://github.com/user-attachments/assets/0ca4982d-7709-4d93-b2f8-69b917039fd5" />
+
 # RouteGuard: Olist late-delivery risk (v3)
 
 Predicts the chance that an Olist order arrives late **at the moment it is placed**, explains why,
